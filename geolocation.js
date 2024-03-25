@@ -15,9 +15,9 @@ function successCallback(position) {
 
     // 緯度経度が近いかどうかの確認
     if (checkProximity(userLatitude, userLongitude, mapLatitude, mapLongitude)) {
-        console.log("近いです");
+        document.getElementById("proximityResult").innerHTML = "近いです";
     } else {
-        console.log("遠いです");
+        document.getElementById("proximityResult").innerHTML = "遠いです";
     }
 };
 
