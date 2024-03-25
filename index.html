@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>金沢ランダムスタンプラリー</title>
+    <style>
+        /* 地図と画像のスタイル指定 */
+        #map {
+            height: 800px;
+            width: 100%;
+        }
+
+        #photos {
+            margin-top: 20px;
+        }
+
+        .photo {
+            margin: 5px;
+            width: 200px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>金沢ランダムスタンプラリー</h1>
+    <div id="map"></div>
+    <div id="photos"></div>
+
+    <!-- Google Maps JavaScript APIの読み込み -->
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBiHBkYrPgCds4ZjiNOJKYjxl90VzJvVns&libraries=places&callback=initMap"
+        async defer></script>
+    <!-- 外部JavaScriptファイルの読み込み -->
+    <script src="index.js" defer></script>
+</body>
+
+</html>
