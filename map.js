@@ -5,7 +5,6 @@ var map;
 
 const radius = 100;// ストリートビュー検索の半径
 const pinNumbers = 10;//ピンの数
-
 // マップの初期化とランダムなピンの設置
 function initMap() {
     // 金沢市の緯度経度情報
@@ -34,6 +33,14 @@ function initMap() {
                 // ピンをクリックした時にストリートビュー画像を取得し表示
                 marker.addListener('click', function () {
                     fetchPhotos(marker.getPosition());
+                    // ここでマーカーの位置を取得して表示
+                    const lat = marker.getPosition().lat(); // 緯度を取得
+                    const lng = marker.getPosition().lng(); // 経度を取得
+                    window.globalLat = lat; // マーカーの緯度のグローバル変数
+                    window.globalLng = lng; // マーカーの経度のグローバル変数
+                    document.getElementById('latitudemap').textContent = lat; // 緯度を表示
+                    document.getElementById('longitudemap').textContent = lng; // 経度を表示
+                    console.log("Latitude:", lat, "Longitude:", lng); // コンソールに表示
                 });
             }
         });
@@ -57,7 +64,6 @@ function getRandomLocation(center, radius) {
     const y0 = center.lat;
     const x0 = center.lng;
     const rd = radius / 111300; // 約111300メートルで1度
-
     const u = Math.random();
     const v = Math.random();
     const w = rd * Math.sqrt(u);
