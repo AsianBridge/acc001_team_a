@@ -91,6 +91,19 @@ function fetchPhotos(location) {
             // ストリートビューが見つかった場合、そのパノラマIDを使って画像を表示
             const panoramaId = data.location.pano;
             const photoUrl = `https://maps.googleapis.com/maps/api/streetview?size=200x200&pano=${panoramaId}&key=AIzaSyBiHBkYrPgCds4ZjiNOJKYjxl90VzJvVns`;
+            fetch('http://127.0.0.1:5000', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ image_url: photoUrl }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log("類似度スコア:", data.similarity_score);
+                }).catch((error) => {
+                    console.error('Error:', error);
+                });
             const img = document.createElement('img');
             img.className = 'photo';
             img.src = photoUrl;

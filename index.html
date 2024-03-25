@@ -10,7 +10,6 @@
     <style>
         /* 地図と画像のスタイル指定 */
         #map {
-            height: 800px;
             width: 100%;
         }
 
@@ -20,7 +19,29 @@
 
         .photo {
             margin: 5px;
-            width: 200px;
+        }
+
+        /* レスポンシブデザインのためのメディアクエリ */
+        @media (min-width: 768px) {
+            #map {
+                height: 400px;
+            }
+
+            .photo {
+                width: 200px;
+            }
+        }
+
+        @media (min-width: 992px) {
+            #map {
+                height: 450px;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            #map {
+                height: 600px;
+            }
         }
     </style>
 </head>
@@ -29,7 +50,6 @@
     <h1>金沢ランダムスタンプラリー</h1>
     <div id="map"></div>
     <div id="photos"></div>
-
 
     <p id="latlng">緯度: <span id="latitudemap"></span>, 経度: <span id="longitudemap"></span></p>
 
@@ -44,6 +64,7 @@
             <p>経度：<span id="longitude">???</span><span>度</span></p>
         </div>
     </div>
+
     <!-- Google Maps JavaScript APIの読み込み -->
     <script
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBiHBkYrPgCds4ZjiNOJKYjxl90VzJvVns&libraries=places&callback=initMap"
