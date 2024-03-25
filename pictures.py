@@ -35,12 +35,13 @@ def get_vector(image_path):
 desk_vec = get_vector("./data/desk_1.jpeg")
 desk_2_vec = get_vector("./data/desk_2.jpeg")
 desk_3_vec = get_vector("./data/desk_3.jpeg")
-
+desk_4_vec = get_vector("./data/desk_4.jpg")
 # ベクトル間の距離を計算
 dist0 = distance.euclidean(desk_vec, desk_vec)
 dist1 = distance.euclidean(desk_vec, desk_2_vec)
 dist2 = distance.euclidean(desk_vec, desk_3_vec)
-
+dist3 = distance.euclidean(desk_2_vec, desk_4_vec)
 print("Same Distance =", round(dist0, 2))
 print("Another Distance =", round(dist1, 2))
 print("Another Distance =", round(dist2, 2))
+print("Another Distance =", round(dist3,2))
