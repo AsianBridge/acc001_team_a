@@ -7,12 +7,14 @@ import requests
 from io import BytesIO
 import numpy as np
 from scipy.spatial import distance
+from flask_cors import CORS
 
 # ResNet50モデルをロード（事前学習済み）
 model = models.resnet50(weights=models.ResNet50_Weights.DEFAULT)
 model.eval()  # 推論モード
 
 app = Flask(__name__)
+CORS(app)
 
 # 画像の前処理
 preprocess = transforms.Compose([
@@ -55,4 +57,4 @@ def compare_image():
     return jsonify({"similarity_score": round(dist, 2)})
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host="0.0.0.0",port="3000",debug=True)
