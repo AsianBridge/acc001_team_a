@@ -93,8 +93,6 @@ function fetchPhotos(location) {
 
             // 「Google Mapsで見る」ボタンを追加
             viewInGoogleMaps(location);
-            // 「カメラを起動する」ボタンを追加
-            activateCamera();
             // 「現在の位置をチェックする」ボタンを追加
             currentPositionCheck();
         } else {
@@ -155,9 +153,6 @@ function activateCamera() {
                         // ビデオの現在のフレームをキャプチャ
                         context.drawImage(video, 0, 0, canvas.width, canvas.height);
                         const image_url2 = canvas.toDataURL('image/jpeg');
-
-
-
                         // canvasを画像として保存するための追加処理
 
                         // キャプチャした画像を表示
@@ -237,6 +232,7 @@ function successCallback(position) {
     // 緯度経度が近いかどうかの確認
     if (checkProximity(userLatitude, userLongitude, mapLatitude, mapLongitude)) {
         document.getElementById("proximityResult").innerHTML = "近いです";
+        activateCamera();
     } else {
         document.getElementById("proximityResult").innerHTML = "遠いです";
     }
@@ -248,6 +244,6 @@ function errorCallback(error) {
 };
 
 // 二点間の距離が十分に近いかを確認
-function checkProximity(lat1, lng1, lat2, lng2, threshold = 0.001) { // 閾値は適宜調整
+function checkProximity(lat1, lng1, lat2, lng2, threshold = 0.1) { // 閾値は適宜調整
     return Math.abs(lat1 - lat2) < threshold && Math.abs(lng1 - lng2) < threshold;
 }
