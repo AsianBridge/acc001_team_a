@@ -18,7 +18,6 @@ function initMap() {
 
     // ストリートビューサービスのインスタンスを作成
 
-
     // 金沢市の中心からランダムな位置に10個のピンを設置
     for (var i = 0; i < pinNumbers; i++) {
         const randomLocation = getRandomLocation(kanazawa, 5000);
@@ -131,14 +130,53 @@ function activateCamera() {
         if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
             navigator.mediaDevices.getUserMedia({ video: true })
                 .then(function (stream) {
-                    // ストリームを取得した後の処理
                     var video = document.createElement('video');
                     video.autoplay = true;
                     video.srcObject = stream;
                     video.style.width = '100%';
 
-                    photosDiv.innerHTML = ''; // 既存のコンテンツをクリア
+                    // 既存のコンテンツをクリアせず、ビデオ要素を追加
                     photosDiv.appendChild(video);
+
+                    // 「写真を撮る」ボタンを生成
+                    const takePhotoButton = document.createElement('button');
+                    takePhotoButton.textContent = '写真を撮る';
+                    takePhotoButton.className = 'btn btn-primary';
+                    photosDiv.appendChild(takePhotoButton);
+
+                    // 写真を撮るボタンのクリックイベント
+                    takePhotoButton.addEventListener('click', function () {
+                        const canvas = document.createElement('canvas');
+                        canvas.width = video.videoWidth;
+                        canvas.height = video.videoHeight;
+                        const context = canvas.getContext('2d');
+                        // ビデオの現在のフレームをキャプチャ
+                        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+                        // canvasを画像として保存するための追加処理
+
+                        // キャプチャした画像を表示
+                        photosDiv.appendChild(canvas);
+
+                        // オプション: ストリームを停止する
+                        stream.getTracks().forEach(track => track.stop());
+                        // ビデオとボタンを隠すまたは削除
+                        video.style.display = 'none';
+                        takePhotoButton.style.display = 'none';
+                        fetch('http://127.0.0.1:5000', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({ image_url: photoUrl }),
+                        })
+                            .then(response => response.json())
+                            .then(data => {
+                                console.log("類似度スコア:", data.similarity_score);
+                            }).catch((error) => {
+                                console.error('Error:', error);
+                            });
+                    });
                 })
                 .catch(function (error) {
                     console.log("カメラのアクセスに失敗しました。", error);
@@ -148,6 +186,7 @@ function activateCamera() {
         }
     });
 }
+
 
 // ピンを設置してスタンプラリーを開始する関数
 function startStampRally() {
