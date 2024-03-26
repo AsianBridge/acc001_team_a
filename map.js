@@ -162,7 +162,7 @@ function activateCamera() {
                         // ビデオとボタンを隠すまたは削除
                         video.style.display = 'none';
                         takePhotoButton.style.display = 'none';
-                        fetch('http://127.0.0.1:5000', {
+                        fetch('/compare-images', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
