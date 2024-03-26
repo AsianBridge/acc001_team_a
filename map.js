@@ -131,6 +131,8 @@ function activateCamera() {
                 .then(function (stream) {
                     var video = document.createElement('video');
                     video.autoplay = true;
+                    video.muted = true;
+                    video.playsInline = true;
                     video.srcObject = stream;
                     video.style.width = '100%';
                     video.style.display = 'block';
