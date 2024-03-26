@@ -152,6 +152,9 @@ function activateCamera() {
                         const context = canvas.getContext('2d');
                         // ビデオの現在のフレームをキャプチャ
                         context.drawImage(video, 0, 0, canvas.width, canvas.height);
+                        const image_url2 = canvas.toDataURL('image/jpeg');
+
+                      
 
                         // canvasを画像として保存するための追加処理
 
@@ -168,7 +171,7 @@ function activateCamera() {
                             headers: {
                                 'Content-Type': 'application/json',
                             },
-                            body: JSON.stringify({ image_url: photoUrl }),
+                            body: JSON.stringify({ image_url1: photoUrl, image_url2}),
                         })
                             .then(response => response.json())
                             .then(data => {
