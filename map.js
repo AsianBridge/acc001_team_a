@@ -2,7 +2,7 @@
 // ピンをクリックするとその場所のストリートビュー画像を表示する
 
 var map;
-
+var totalScore = 0;
 const radius = 100;// ストリートビュー検索の半径
 const pinNumbers = 10;//ピンの数
 // マップの初期化とランダムなピンの設置
@@ -95,13 +95,15 @@ function fetchPhotos(location) {
             viewInGoogleMaps(location);
             // 「カメラを起動する」ボタンを追加
             activateCamera();
-
+            // 「現在の位置をチェックする」ボタンを追加
+            currentPositionCheck();
         } else {
             // ストリートビューが見つからない場合の処理
             photosDiv.innerHTML = 'この場所のストリートビューは利用できません。';
         }
     });
 }
+
 function viewInGoogleMaps(location) {
     const photosDiv = document.getElementById('photos');
     // 「Google Mapsで見る」ボタンを生成
@@ -154,7 +156,7 @@ function activateCamera() {
                         context.drawImage(video, 0, 0, canvas.width, canvas.height);
                         const image_url2 = canvas.toDataURL('image/jpeg');
 
-                      
+
 
                         // canvasを画像として保存するための追加処理
 
@@ -171,11 +173,19 @@ function activateCamera() {
                             headers: {
                                 'Content-Type': 'application/json',
                             },
-                            body: JSON.stringify({ image_url1: photoUrl, image_url2}),
+                            body: JSON.stringify({ image_url1: photoUrl, image_url2 }),
                         })
                             .then(response => response.json())
                             .then(data => {
                                 console.log("類似度スコア:", data.similarity_score);
+                                // ここで類似度スコアが13より小さいかをチェック
+                                if (data.similarity_score < 13) {
+                                    // スコアを100点追加する
+                                    console.log("類似度スコアが13より低かったのでスコアに100点を追加します。");
+                                    updateScore(totalScore + 100); // スコアを更新する
+                                } else {
+                                    console.log("類似度スコアが高すぎます。");
+                                }
                             }).catch((error) => {
                                 console.error('Error:', error);
                             });
@@ -189,7 +199,21 @@ function activateCamera() {
         }
     });
 }
-
+function currentPositionCheck() {
+    const photosDiv = document.getElementById('photos');
+    const checkLocationButton = document.createElement('button');
+    checkLocationButton.textContent = '現在の位置をチェック';
+    checkLocationButton.className = 'btn btn-outline-primary btn-lg';
+    checkLocationButton.id = 'checkLocationButton'; // ボタンにIDを設定
+    photosDiv.appendChild(checkLocationButton);
+    checkLocationButton.onclick = function () {
+        navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+    };
+}
+function updateScore(newScore) {
+    totalScore = newScore; // totalScore変数を更新
+    document.getElementById('score').textContent = totalScore; // HTMLの表示を更新
+}
 
 // ピンを設置してスタンプラリーを開始する関数
 function startStampRally() {
@@ -198,4 +222,32 @@ function startStampRally() {
 
     // ピンを設置する処理を開始する
     initMap(); // initMap関数を呼び出して、ピンの設置を開始する
+}
+
+function successCallback(position) {
+    var userLatitude = position.coords.latitude;
+    var userLongitude = position.coords.longitude;
+    document.getElementById("latitude").innerHTML = userLatitude;
+    // 経度を取得し画面に表示
+    document.getElementById("longitude").innerHTML = userLongitude;
+    // グローバル変数からマップ上の緯度経度を取得
+    var mapLatitude = window.globalLat;
+    var mapLongitude = window.globalLng;
+
+    // 緯度経度が近いかどうかの確認
+    if (checkProximity(userLatitude, userLongitude, mapLatitude, mapLongitude)) {
+        document.getElementById("proximityResult").innerHTML = "近いです";
+    } else {
+        document.getElementById("proximityResult").innerHTML = "遠いです";
+    }
+};
+
+// 取得に失敗した場合の処理
+function errorCallback(error) {
+    alert("位置情報が取得できませんでした");
+};
+
+// 二点間の距離が十分に近いかを確認
+function checkProximity(lat1, lng1, lat2, lng2, threshold = 0.001) { // 閾値は適宜調整
+    return Math.abs(lat1 - lat2) < threshold && Math.abs(lng1 - lng2) < threshold;
 }

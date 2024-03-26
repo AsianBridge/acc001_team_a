@@ -49,28 +49,31 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-            <a class="navbar-brand mx-auto" href="#">金沢ランダムスタンプラリー</a>
+            <a class="navbar-brand mx-auto" href="#">金沢フォトクエスト</a>
             <!-- ナビゲーションメニュー項目 -->
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">メニュー1</a>
+                    <a class="nav-link" href="#">フレンドリスト</a>
                 </li>
-                <!-- 他のメニュー項目 -->
+                <li class="nav-item">
+                    <a class="nav-link" href="#">フレンドを追加する</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">フレンドリクエスト</a>
+                </li>
             </ul>
         </div>
     </nav>
+    <div id="scoreDisplay">現在のスコア: <span id="score">0</span></div>
     <div id="map"></div>
     <div id="photos"></div>
+
     <p id="latlng">緯度: <span id="latitudemap"></span>, 経度: <span id="longitudemap"></span></p>
 
     <div class="center">
         <!-- STARTするボタンを追加 -->
         <button id="startButton" class="btn btn-primary btn-lg" onclick="startStampRally()">STARTする</button>
-        <div class="btn-margin" style="display:none;">
-            <button id="btn" class="btn btn-outline-primary btn-lg">
-                現在位置を取得する
-            </button>
-        </div>
+
         <div class="txt-margin" id="txtMargin">
             <p>緯度：<span id="latitude">???</span><span>度</span></p>
             <p>経度：<span id="longitude">???</span><span>度</span></p>
