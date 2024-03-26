@@ -18,11 +18,11 @@ function registerUser() {
     var email = document.getElementById('email').value;
     // パスワードを取得
     var password = document.getElementById('pwd').value;
-  
+
     // メールアドレスとパスワードをalertで表示
     alert("メールアドレス: " + email + "\nパスワード: " + password);
     saveUserToLocalStorage(email, password);
-  
+
     // ユーザー登録の処理（ダミー）
     showMainScreen();
 }
@@ -37,14 +37,14 @@ document.getElementById('loginForm').onsubmit = function (event) {
 function saveUserToLocalStorage(email, password) {
     // ユーザー情報をオブジェクトとして作成
     var user = {
-      email: email,
-      password: password
+        email: email,
+        password: password
     };
-  
+
     // ユーザー情報をJSON形式に変換
     var userJson = JSON.stringify(user);
     console.log(userJson)
-  
+
     // ローカルストレージにユーザー情報を保存
     localStorage.setItem('user', userJson);
 }
