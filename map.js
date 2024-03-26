@@ -174,6 +174,7 @@ function activateCamera() {
                             .then(response => response.json())
                             .then(data => {
                                 console.log("類似度スコア:", data.similarity_score);
+                                document.getElementById('similarityScore').textContent = data.similarity_score;
                                 // ここで類似度スコアが13より小さいかをチェック
                                 if (data.similarity_score < 13) {
                                     // スコアを100点追加する
