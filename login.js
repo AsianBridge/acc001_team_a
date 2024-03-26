@@ -9,6 +9,7 @@ function showLoginScreen() {
     document.getElementById('latlng').style.display = 'none';
     document.getElementById('startButton').style.display = 'none';
     document.getElementById('txtMargin').style.display = 'none';
+    document.getElementById('scoreDisplay').style.display = 'none';
     // ログイン画面を表示する
     document.getElementById('loginScreen').style.display = 'block';
 }
@@ -59,4 +60,5 @@ function showMainScreen() {
     document.getElementById('latlng').style.display = 'block';
     document.getElementById('startButton').style.display = 'block';
     document.getElementById('txtMargin').style.display = 'block';
+    document.getElementById('scoreDisplay').style.display = 'block';
 }
