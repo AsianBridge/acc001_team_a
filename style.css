@@ -59,6 +59,15 @@
     align-items: center;
 }
 
+.center {
+    display: flex;
+    justify-content: center;
+    /* 水平方向の中央揃え */
+
+    text-align: center;
+    /* テキストも中央揃えにする */
+}
+
 .navbar {
     padding: 10px 0;
 
