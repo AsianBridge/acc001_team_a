@@ -10,7 +10,51 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     background-color: white;
 }
+/* 地図と画像のスタイル指定 */
+#map {
+    width: 100%;
+}
 
+#photos {
+    margin-top: 20px;
+}
+
+.photo {
+    margin: 5px;
+}
+
+/* スマホ */
+@media screen and (max-width: 480px) {
+    #loginScreen {
+        left: 0;
+        transform: translate(0, -50%);
+        width: 100%;
+        margin: 0;
+    }
+    #map {
+        height: 400px;
+    }
+    .photo {
+        width: 400px;
+    }
+    canvas {
+        max-width: 100%;
+    }
+}
+
+/* タブレット */
+@media (min-width: 992px) {
+    #map {
+        height: 450px;
+    }
+}
+
+/* PC */
+@media (min-width: 1200px) {
+    #map {
+        height: 600px;
+    }
+}
 .h1 {
     align-items: center;
 }
