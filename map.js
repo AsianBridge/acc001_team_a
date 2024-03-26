@@ -9,7 +9,6 @@ const pinNumbers = 10;//ピンの数
 function initMap() {
     // 金沢市の緯度経度情報
     const kanazawa = { lat: 36.561325, lng: 136.656205 };
-
     // Google Mapsのインスタンスを作成し、#mapのdivに表示
     map = new google.maps.Map(document.getElementById('map'), {
         center: kanazawa,
@@ -128,14 +127,14 @@ function activateCamera() {
     // ボタンクリックでカメラを起動
     cameraButton.addEventListener('click', function () {
         if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-            navigator.mediaDevices.getUserMedia({ video: true })
+            navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } }) // 外側のカメラを指定
                 .then(function (stream) {
                     var video = document.createElement('video');
                     video.autoplay = true;
                     video.srcObject = stream;
                     video.style.width = '100%';
+                    video.style.display = 'block';
 
-                    // 既存のコンテンツをクリアせず、ビデオ要素を追加
                     photosDiv.appendChild(video);
 
                     // 「写真を撮る」ボタンを生成
