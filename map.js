@@ -168,7 +168,7 @@ function activateCamera() {
                             headers: {
                                 'Content-Type': 'application/json',
                             },
-                            body: JSON.stringify({ image_url1: photoUrl, image_url2 }),
+                            body: JSON.stringify({ image_url1: document.querySelector("#photos > .photo").src, image_url2 }),
                         })
                             .then(response => response.json())
                             .then(data => {
