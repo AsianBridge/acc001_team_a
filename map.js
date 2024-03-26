@@ -82,38 +82,66 @@ function fetchPhotos(location) {
     photosDiv.innerHTML = ''; // 以前の画像をクリア
 
     const streetViewService = new google.maps.StreetViewService();
-    // ストリートビューの検索半径を100メートルに設定
-    const radius = 100;
-
-    // 指定された位置に最も近いストリートビューのパノラマを検索
     streetViewService.getPanorama({ location: location, radius: radius }, function (data, status) {
         if (status === google.maps.StreetViewStatus.OK) {
             // ストリートビューが見つかった場合、そのパノラマIDを使って画像を表示
             const panoramaId = data.location.pano;
             const photoUrl = `https://maps.googleapis.com/maps/api/streetview?size=200x200&pano=${panoramaId}&key=AIzaSyBiHBkYrPgCds4ZjiNOJKYjxl90VzJvVns`;
-            fetch('http://127.0.0.1:5000', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ image_url: photoUrl }),
-            })
-                .then(response => response.json())
-                .then(data => {
-                    console.log("類似度スコア:", data.similarity_score);
-                }).catch((error) => {
-                    console.error('Error:', error);
-                });
             const img = document.createElement('img');
             img.className = 'photo';
             img.src = photoUrl;
             photosDiv.appendChild(img);
+
+            // 「Google Mapsで見る」ボタンを追加
+            const viewInMapsButton = document.createElement('button');
+            viewInMapsButton.textContent = 'Google Mapで見る';
+            viewInMapsButton.className = 'btn btn-success';
+            photosDiv.appendChild(viewInMapsButton);
+            const CameraButton = document.createElement('button');
+            CameraButton.textContent = 'カメラを起動する';
+            CameraButton.className = 'btn btn-success';
+            photosDiv.appendChild(CameraButton);
+            const lat = location.lat(); // 正しく緯度を取得
+            const lng = location.lng(); // 正しく経度を取得
+            const destination = lat + ',' + lng;
+            // ボタンクリックでGoogle Mapsの経路案内ページに遷移
+            viewInMapsButton.addEventListener('click', function () {
+                const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${destination}`;
+                window.open(directionsUrl, '_blank');
+            });
+            CameraButton.addEventListener('click', function () {
+                // メディアデバイス（カメラ）へのアクセスを試みる
+                if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                    // カメラのビデオストリームを要求する
+                    navigator.mediaDevices.getUserMedia({ video: true })
+                        .then(function (stream) {
+                            // ストリームを取得した後の処理
+                            // 例: ビデオ要素にストリームを設定して再生する
+                            var video = document.createElement('video');
+                            video.autoplay = true; // 自動再生
+                            video.srcObject = stream;
+                            video.style.width = '100%'; // ビデオのサイズを設定
+
+                            // 既存のコンテンツをクリアし、ビデオ要素を追加
+                            photosDiv.innerHTML = '';
+                            photosDiv.appendChild(video);
+                        })
+                        .catch(function (error) {
+                            // エラー発生時の処理
+                            console.log("カメラのアクセスに失敗しました。", error);
+                        });
+                } else {
+                    alert("お使いのブラウザではカメラ機能がサポートされていません。");
+                }
+            });
+
         } else {
             // ストリートビューが見つからない場合の処理
             photosDiv.innerHTML = 'この場所のストリートビューは利用できません。';
         }
     });
 }
+
 // ピンを設置してスタンプラリーを開始する関数
 function startStampRally() {
     // 「STARTする」ボタンを非表示にする

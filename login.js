@@ -15,14 +15,14 @@ function showLoginScreen() {
 
 function registerUser() {
     // ユーザー登録の処理（ダミー）
-    alert("ユーザー登録の処理をここに実装");
+    showMainScreen();
 }
 
 // ログインフォームの送信を扱う
 document.getElementById('loginForm').onsubmit = function (event) {
     event.preventDefault(); // フォームの送信を阻止
     // ログイン処理（ダミー）
-    alert("ログイン処理をここに実装");
+    showMainScreen();
 };
 
 function showMainScreen() {
