@@ -93,51 +93,58 @@ function fetchPhotos(location) {
             photosDiv.appendChild(img);
 
             // 「Google Mapsで見る」ボタンを追加
-            const viewInMapsButton = document.createElement('button');
-            viewInMapsButton.textContent = 'Google Mapで見る';
-            viewInMapsButton.className = 'btn btn-success';
-            photosDiv.appendChild(viewInMapsButton);
-            const CameraButton = document.createElement('button');
-            CameraButton.textContent = 'カメラを起動する';
-            CameraButton.className = 'btn btn-success';
-            photosDiv.appendChild(CameraButton);
-            const lat = location.lat(); // 正しく緯度を取得
-            const lng = location.lng(); // 正しく経度を取得
-            const destination = lat + ',' + lng;
-            // ボタンクリックでGoogle Mapsの経路案内ページに遷移
-            viewInMapsButton.addEventListener('click', function () {
-                const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${destination}`;
-                window.open(directionsUrl, '_blank');
-            });
-            CameraButton.addEventListener('click', function () {
-                // メディアデバイス（カメラ）へのアクセスを試みる
-                if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-                    // カメラのビデオストリームを要求する
-                    navigator.mediaDevices.getUserMedia({ video: true })
-                        .then(function (stream) {
-                            // ストリームを取得した後の処理
-                            // 例: ビデオ要素にストリームを設定して再生する
-                            var video = document.createElement('video');
-                            video.autoplay = true; // 自動再生
-                            video.srcObject = stream;
-                            video.style.width = '100%'; // ビデオのサイズを設定
-
-                            // 既存のコンテンツをクリアし、ビデオ要素を追加
-                            photosDiv.innerHTML = '';
-                            photosDiv.appendChild(video);
-                        })
-                        .catch(function (error) {
-                            // エラー発生時の処理
-                            console.log("カメラのアクセスに失敗しました。", error);
-                        });
-                } else {
-                    alert("お使いのブラウザではカメラ機能がサポートされていません。");
-                }
-            });
+            viewInGoogleMaps(location);
+            // 「カメラを起動する」ボタンを追加
+            activateCamera();
 
         } else {
             // ストリートビューが見つからない場合の処理
             photosDiv.innerHTML = 'この場所のストリートビューは利用できません。';
+        }
+    });
+}
+function viewInGoogleMaps(location) {
+    const photosDiv = document.getElementById('photos');
+    // 「Google Mapsで見る」ボタンを生成
+    const viewInMapsButton = document.createElement('button');
+    viewInMapsButton.textContent = 'Google Mapで見る';
+    viewInMapsButton.className = 'btn btn-success';
+    photosDiv.appendChild(viewInMapsButton);
+
+    // ボタンクリックでGoogle Mapsの経路案内ページに遷移
+    viewInMapsButton.addEventListener('click', function () {
+        const destination = location.lat() + ',' + location.lng();
+        const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${destination}`;
+        window.open(directionsUrl, '_blank');
+    });
+}
+function activateCamera() {
+    const photosDiv = document.getElementById('photos');
+    // 「カメラを起動する」ボタンを生成
+    const cameraButton = document.createElement('button');
+    cameraButton.textContent = 'カメラを起動する';
+    cameraButton.className = 'btn btn-success';
+    photosDiv.appendChild(cameraButton);
+
+    // ボタンクリックでカメラを起動
+    cameraButton.addEventListener('click', function () {
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then(function (stream) {
+                    // ストリームを取得した後の処理
+                    var video = document.createElement('video');
+                    video.autoplay = true;
+                    video.srcObject = stream;
+                    video.style.width = '100%';
+
+                    photosDiv.innerHTML = ''; // 既存のコンテンツをクリア
+                    photosDiv.appendChild(video);
+                })
+                .catch(function (error) {
+                    console.log("カメラのアクセスに失敗しました。", error);
+                });
+        } else {
+            alert("お使いのブラウザではカメラ機能がサポートされていません。");
         }
     });
 }
