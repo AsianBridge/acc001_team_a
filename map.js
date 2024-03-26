@@ -114,3 +114,11 @@ function fetchPhotos(location) {
         }
     });
 }
+// ピンを設置してスタンプラリーを開始する関数
+function startStampRally() {
+    // 「STARTする」ボタンを非表示にする
+    document.getElementById('startButton').style.display = 'none';
+
+    // ピンを設置する処理を開始する
+    initMap(); // initMap関数を呼び出して、ピンの設置を開始する
+}

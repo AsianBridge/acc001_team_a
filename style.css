@@ -1,0 +1,27 @@
+#loginScreen {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 400px;
+    /* 適宜調整 */
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: white;
+}
+
+.h1 {
+    align-items: center;
+}
+
+.navbar {
+    padding: 10px 0;
+
+}
+
+
+.navbar-brand {
+    font-size: 24px;
+
+}
