@@ -5,6 +5,7 @@ var map;
 var totalScore = 0;
 const radius = 100;// ストリートビュー検索の半径
 const pinNumbers = 10;//ピンの数
+
 // マップの初期化とランダムなピンの設置
 var pinsData = [];
 function initMap() {
@@ -64,7 +65,7 @@ function initMap() {
                     console.log("Latitude:", lat, "Longitude:", lng); // コンソールに表示
                     // ここから追加: 情報ウィンドウを表示する
                     const infoWindow = new google.maps.InfoWindow({
-                        content: '<div>ここをクリックしてるよ</div>' // 表示したい内容
+                        content: '<div>ここクリックしてるさけ</div>' // 表示したい内容
                     });
                     infoWindow.open(map, this); // このマーカーに対して情報ウィンドウを開く
                 });
@@ -72,6 +73,41 @@ function initMap() {
         });
     }
 }
+function otherPersonMap(pinsData) {
+    // pinsDataが配列であることを確認
+    if (Array.isArray(pinsData)) {
+        pinsData.forEach(function (pin) {
+            // 各ピンの位置情報を元にGoogle Maps Markerを作成
+            const location = { lat: pin.latitude, lng: pin.longitude };
+            const marker = new google.maps.Marker({
+                position: location,
+                map: map
+            });
+
+            // マーカーをクリックした時のイベントリスナーを設置
+            marker.addListener('click', function () {
+                fetchPhotos(marker.getPosition());
+                // 位置情報を取得して表示
+                const lat = marker.getPosition().lat(); // 緯度を取得
+                const lng = marker.getPosition().lng(); // 経度を取得
+                window.globalLat = lat; // マーカーの緯度のグローバル変数
+                window.globalLng = lng; // マーカーの経度のグローバル変数
+                document.getElementById('latitudemap').textContent = lat; // 緯度を表示
+                document.getElementById('longitudemap').textContent = lng; // 経度を表示
+                console.log("Latitude:", lat, "Longitude:", lng); // コンソールに表示
+
+                // 情報ウィンドウを表示
+                const infoWindow = new google.maps.InfoWindow({
+                    content: '<div>ここをクリックしてるよ</div>' // 表示したい内容
+                });
+                infoWindow.open(map, marker); // このマーカーに対して情報ウィンドウを開く
+            });
+        });
+    } else {
+        console.error('pinsDataは配列ではありません。');
+    }
+}
+
 
 // ランダムな位置にストリートビューが利用可能か確認
 function checkStreetViewAvailability(location, radius, callback) {
@@ -201,8 +237,16 @@ function activateCamera() {
                         })
                             .then(response => response.json())
                             .then(data => {
+                                var similarity_scoreText = "";
                                 console.log("類似度スコア:", data.similarity_score);
-                                document.getElementById('similarityScore').textContent = data.similarity_score;
+                                if (data.similarity_score < 18) {
+                                    similarity_scoreText = "良い写真やじー！"
+                                } else if (data.similarity_score < 30) {
+                                    similarity_scoreText = "撮り直しまっしー"
+                                } else {
+                                    similarity_scoreText = "だら！全然違うがいね！撮り直しまっし！"
+                                }
+                                document.getElementById('similarityScore').textContent = similarity_scoreText;
                                 // ここで類似度スコアが13より小さいかをチェック
                                 if (data.similarity_score < 18) {
                                     // スコアを100点追加する
