@@ -68,6 +68,8 @@ function login() {
     var cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
     cognitoUser.authenticateUser(authenticationDetails, {
         onSuccess: function (result) {
+            // ユーザーIDを表示
+            document.getElementById("my-user-id").innerText = "ユーザーID: " + result.idToken.payload.sub;
             var idToken = result.getIdToken().getJwtToken();          // IDトークン
             var accessToken = result.getAccessToken().getJwtToken();  // アクセストークン
             var refreshToken = result.getRefreshToken().getToken();   // 更新トークン
