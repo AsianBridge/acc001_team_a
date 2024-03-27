@@ -102,7 +102,7 @@ function fetchPhotos(location) {
         if (status === google.maps.StreetViewStatus.OK) {
             // ストリートビューが見つかった場合、そのパノラマIDを使って画像を表示
             const panoramaId = data.location.pano;
-            const photoUrl = `https://maps.googleapis.com/maps/api/streetview?size=200x200&pano=${panoramaId}&key=AIzaSyBiHBkYrPgCds4ZjiNOJKYjxl90VzJvVns`;
+            const photoUrl = `https://maps.googleapis.com/maps/api/streetview?size=200x200&pano=${panoramaId}&key=${env.GOOGLE_MAPS_API_KEY}`;
             const img = document.createElement('img');
             img.className = 'photo';
             img.src = photoUrl;

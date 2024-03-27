@@ -17,8 +17,8 @@ function showLoginScreen() {
 function registerUser() {
 
     var poolData = {
-        UserPoolId: 'ap-northeast-1_Ho5QJJZdN', // Your user pool id here
-        ClientId: '6tj32iijpna53879qpjnikaird', // Your client id here
+        UserPoolId: env.USER_POOL_ID, // Your user pool id here
+        ClientId: env.CLIENT_ID, // Your client id here
     };
     var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
 
@@ -56,8 +56,8 @@ function login() {
         authenticationData
     );
     var poolData = {
-        UserPoolId: 'ap-northeast-1_Ho5QJJZdN', // Your user pool id here
-        ClientId: '6tj32iijpna53879qpjnikaird', // Your client id here
+        UserPoolId: env.USER_POOL_ID, // Your user pool id here
+        ClientId: env.CLIENT_ID, // Your client id here
     };
     var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
     var userData = {
