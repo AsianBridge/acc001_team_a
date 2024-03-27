@@ -15,6 +15,24 @@ function initMap() {
         zoom: 12
     });
 
+    const specificLocation = { lat: 36.5527378, lng: 136.6300291 };
+    const specificMarker = new google.maps.Marker({
+        position: specificLocation,
+        map: map
+    });
+
+    // このマーカーに対してもクリックイベントを追加
+    specificMarker.addListener('click', function () {
+        fetchPhotos(specificMarker.getPosition());
+        // ここでマーカーの位置を取得して表示
+        const lat = specificMarker.getPosition().lat(); // 緯度を取得
+        const lng = specificMarker.getPosition().lng(); // 経度を取得
+        window.globalLat = lat; // マーカーの緯度のグローバル変数
+        window.globalLng = lng; // マーカーの経度のグローバル変数
+        document.getElementById('latitudemap').textContent = lat; // 緯度を表示
+        document.getElementById('longitudemap').textContent = lng; // 経度を表示
+        console.log("Specific Location - Latitude:", lat, "Longitude:", lng); // コンソールに表示
+    });
     // ストリートビューサービスのインスタンスを作成
 
     // 金沢市の中心からランダムな位置に10個のピンを設置

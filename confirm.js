@@ -15,14 +15,14 @@ function OnCognitoConfirmRegistration() {
 	};
 
 	var cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
-	cognitoUser.confirmRegistration(code, true, function(err, result) {
+	cognitoUser.confirmRegistration(code, true, function (err, result) {
 		if (err) {
 			alert(err.message || JSON.stringify(err));
 			return;
-		}else{
-            console.log("confirm successed")
-            window.location.href = 'index.html';
-        }
+		} else {
+			console.log("confirm successed")
+			window.location.href = 'index.html';
+		}
 		console.log('call result: ' + result);
 	});
 }
