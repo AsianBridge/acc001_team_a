@@ -1,3 +1,7 @@
+window.onload = function () {
+	// ログイン画面を表示する
+	document.getElementById('confirmScreen').style.display = 'block';
+};
 function OnCognitoConfirmRegistration() {
 
 	var poolData = {

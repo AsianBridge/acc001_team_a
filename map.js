@@ -6,6 +6,7 @@ var totalScore = 0;
 const radius = 100;// ストリートビュー検索の半径
 const pinNumbers = 10;//ピンの数
 // マップの初期化とランダムなピンの設置
+var pinsData = [];
 function initMap() {
     // 金沢市の緯度経度情報
     const kanazawa = { lat: 36.561325, lng: 136.656205 };
@@ -45,7 +46,11 @@ function initMap() {
                     position: location,
                     map: map
                 });
-
+                pinsData.push({
+                    latitude: location.lat,
+                    longitude: location.lng
+                });
+                console.log(pinsData);
                 // ピンをクリックした時にストリートビュー画像を取得し表示
                 marker.addListener('click', function () {
                     fetchPhotos(marker.getPosition());
@@ -57,6 +62,11 @@ function initMap() {
                     document.getElementById('latitudemap').textContent = lat; // 緯度を表示
                     document.getElementById('longitudemap').textContent = lng; // 経度を表示
                     console.log("Latitude:", lat, "Longitude:", lng); // コンソールに表示
+                    // ここから追加: 情報ウィンドウを表示する
+                    const infoWindow = new google.maps.InfoWindow({
+                        content: '<div>ここをクリックしてるよ</div>' // 表示したい内容
+                    });
+                    infoWindow.open(map, this); // このマーカーに対して情報ウィンドウを開く
                 });
             }
         });
