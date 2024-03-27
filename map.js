@@ -15,7 +15,7 @@ function initMap() {
         zoom: 12
     });
 
-    const specificLocation = { lat: 36.5527378, lng: 136.6300291 };
+    const specificLocation = { lat: 36.5527392, lng: 136.6459081 };
     const specificMarker = new google.maps.Marker({
         position: specificLocation,
         map: map
