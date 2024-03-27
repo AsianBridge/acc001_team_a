@@ -3,14 +3,8 @@ window.onload = function () {
 };
 
 function showLoginScreen() {
-    // 既存の要素を非表示にする
-    document.getElementById('map').style.display = 'none';
-    document.getElementById('photos').style.display = 'none';
-    document.getElementById('latlng').style.display = 'none';
-    document.getElementById('startButton').style.display = 'none';
-    document.getElementById('txtMargin').style.display = 'none';
-    document.getElementById('scoreDisplay').style.display = 'none';
     // ログイン画面を表示する
+    document.getElementById("need-login").style.display = "none";
     document.getElementById('loginScreen').style.display = 'block';
 }
 
@@ -112,13 +106,6 @@ function login() {
 
 function showMainScreen() {
     // ログイン画面を非表示にする
+    document.getElementById("need-login").style.display = "block";
     document.getElementById('loginScreen').style.display = 'none';
-
-    // 元々のページの要素を表示する
-    document.getElementById('map').style.display = 'block';
-    document.getElementById('photos').style.display = 'block';
-    document.getElementById('latlng').style.display = 'block';
-    document.getElementById('startButton').style.display = 'block';
-    document.getElementById('txtMargin').style.display = 'block';
-    document.getElementById('scoreDisplay').style.display = 'block';
 }
