@@ -10,12 +10,16 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
 </head>
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-            <a class="navbar-brand mx-auto" href="#">金沢フォト漬け</a>
+            <a class="navbar-brand mx-auto" href="#">
+                <img src="KanazawaPhotoduke.png" alt="金沢フォト漬け" style="height: 40px; margin-right: 10px;">
+                金沢フォト漬け
+            </a>
             <!-- ナビゲーションメニュー項目 -->
             <ul class="navbar-nav">
                 <li class="nav-item">
@@ -40,7 +44,7 @@
 
     <div class="center">
         <!-- STARTするボタンを追加 -->
-        <button id="startButton" class="btn btn-primary btn-lg" onclick="startStampRally()">STARTする</button>
+        <button id="startButton" class="btn btn-primary btn-lg" onclick="startStampRally()">始めよっさ</button>
 
         <div class="txt-margin" id="txtMargin">
             <p>緯度：<span id="latitude">???</span><span>度</span></p>
