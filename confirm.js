@@ -25,6 +25,7 @@ function OnCognitoConfirmRegistration() {
 			return;
 		} else {
 			console.log("confirm successed")
+			document.getElementById('confirmScreen').style.display = 'none';
 			window.location.href = 'index.html';
 		}
 		console.log('call result: ' + result);
