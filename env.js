@@ -1,4 +1,4 @@
-const env = {
+window.env = {
     GOOGLE_MAPS_API_KEY: 'AIzaSyBiHBkYrPgCds4ZjiNOJKYjxl90VzJvVns',
     USER_POOL_ID: 'ap-northeast-1_Ho5QJJZdN',
     CLIENT_ID: '6tj32iijpna53879qpjnikaird',
