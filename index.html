@@ -45,11 +45,64 @@
             <p id="proximityResult"></p>
         </div>
     </div>
+    <!-- フレンドリストモーダル -->
+    <div class="modal" id="friendListModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">フレンドリスト</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <!-- フレンドリストをここに表示 -->
+                    <ul id="friendList"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- フレンド追加モーダル -->
+    <div class="modal" id="addFriendModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">フレンドを追加する</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <input type="text" id="friendIdInput" placeholder="フレンドID">
+                    <button type="button" id="sendFriendRequest">フレンドリクエストを送る</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- フレンドリクエスト確認モーダル -->
+    <div class="modal" id="friendRequestModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">フレンドリクエスト</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <!-- フレンドリクエストをここに表示 -->
+                    <ul id="friendRequestList"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
     <!-- Google Maps JavaScript APIの読み込み -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBiHBkYrPgCds4ZjiNOJKYjxl90VzJvVns&libraries=places"
         async defer></script>
+
+    <!-- Optional: jQuery and Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <!-- 外部JavaScriptファイルの読み込み -->
     <script src="map.js"></script>
@@ -58,6 +111,7 @@
     <script src="aws-cognito-sdk.min.js"></script>
     <script src="amazon-cognito-identity.min.js"></script>
     <script src="login.js"></script>
+    <script src="friend.js"></script>
     <div id="loginScreen" style="display: none;">
         <form id="loginForm">
             <div class="form-group">
