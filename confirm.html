@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8"></meta>
+  <title>CognitoConfirmRegistration</title>
+  <script src="aws-cognito-sdk.min.js"></script>
+  <script src="amazon-cognito-identity.min.js"></script>
+  <script src="confirm.js"></script>
+</head>
+<body>
+  <h1>CognitoConfirmRegistration</h1>
+  <span style="display: inline-block; width: 100px;">Email</span>
+  <input type="text" id="email" placeholder="Email Address">
+  <br/>
+  <span style="display: inline-block; width: 100px;">ConfirmCode</span>
+  <input type="text" id="ConfirmCode" placeholder="Confirm Code">
+  <br/><br/>
+  <input type="button" value="CognitoConfirmRegistration" onclick="OnCognitoConfirmRegistration();">
+</body>
+</html>
