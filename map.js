@@ -194,9 +194,9 @@ function activateCamera() {
                                 console.log("類似度スコア:", data.similarity_score);
                                 document.getElementById('similarityScore').textContent = data.similarity_score;
                                 // ここで類似度スコアが13より小さいかをチェック
-                                if (data.similarity_score < 13) {
+                                if (data.similarity_score < 18) {
                                     // スコアを100点追加する
-                                    console.log("類似度スコアが13より低かったのでスコアに100点を追加します。");
+                                    console.log("類似度スコアが18より低かったのでスコアに100点を追加します。");
                                     updateScore(totalScore + 100); // スコアを更新する
                                 } else {
                                     console.log("類似度スコアが高すぎます。");
